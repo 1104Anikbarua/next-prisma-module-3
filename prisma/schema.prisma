@@ -12,3 +12,50 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Role {
+  User
+  Admin
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  email     String   @unique
+  role      Role     @default(User)
+  Post      Post[]
+  Profile   Profile?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id               Int                @id @default(autoincrement())
+  title            String
+  content          String
+  published        Boolean            @default(false)
+  userId           Int
+  user             User               @relation(fields: [userId], references: [id])
+  PostOnCategories PostOnCategories[]
+}
+
+model Profile {
+  id     Int  @id @default(autoincrement())
+  userId Int  @unique // must be unique if you want to make one to one relationship
+  user   User @relation(fields: [userId], references: [id])
+}
+
+model Category {
+  id               Int                @id @default(autoincrement())
+  name             String
+  PostOnCategories PostOnCategories[]
+}
+
+model PostOnCategories {
+  postId     Int
+  post       Post     @relation(fields: [postId], references: [id])
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@id([postId, categoryId])
+}
