@@ -43,9 +43,10 @@ model Post {
 }
 
 model Profile {
-  id     Int  @id @default(autoincrement())
-  userId Int  @unique // must be unique if you want to make one to one relationship
-  user   User @relation(fields: [userId], references: [id])
+  id     Int    @id @default(autoincrement())
+  bio    String
+  userId Int    @unique // must be unique if you want to make one to one relationship
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model Category {
