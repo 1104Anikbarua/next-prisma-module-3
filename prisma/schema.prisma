@@ -23,19 +23,22 @@ model User {
   name      String   @unique
   email     String   @unique
   role      Role     @default(User)
-  Post      Post[]
-  Profile   Profile?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  posts     Post[]
+  profile   Profile?
 }
 
 model Post {
-  id               Int                @id @default(autoincrement())
-  title            String
-  content          String
-  published        Boolean            @default(false)
-  userId           Int
-  user             User               @relation(fields: [userId], references: [id])
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  published Boolean  @default(false)
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   PostOnCategories PostOnCategories[]
 }
 
@@ -48,7 +51,7 @@ model Profile {
 model Category {
   id               Int                @id @default(autoincrement())
   name             String
-  PostOnCategories PostOnCategories[]
+  postOnCategories PostOnCategories[]
 }
 
 model PostOnCategories {
