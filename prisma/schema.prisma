@@ -27,6 +27,7 @@ model User {
   updatedAt DateTime @updatedAt
   posts     Post[]
   profile   Profile?
+  age       Int      @default(0) //if you don't provide default value it gives error if there is already value in user table and you add age field later
 }
 
 model Post {
