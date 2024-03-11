@@ -13,3 +13,15 @@ const mainCreate = async () => {
   console.log(createUser);
 };
 // mainCreate();
+
+const mainUpdate = async () => {
+  const updateUser = await prisma.user.update({
+    where: { id: 6 },
+    data: {
+      email: "paps@gmail.com",
+    },
+  });
+  console.log(updateUser);
+};
+
+mainUpdate();
