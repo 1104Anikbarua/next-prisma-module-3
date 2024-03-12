@@ -27,3 +27,14 @@ const mainUpdate = async () => {
 };
 
 // mainUpdate();
+
+const mainTestUser = async () => {
+  const createUser = await prisma.test.create({
+    data: {
+      name: "rohit",
+      age: 32,
+    },
+  });
+  console.log(createUser);
+};
+mainTestUser();
